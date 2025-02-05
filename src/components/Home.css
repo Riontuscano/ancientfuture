@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Uncial+Antiqua&display=swap");
+.font-ancient {
+  font-family: "Cinzel", "Uncial Antiqua", serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.text-gold {
+  background: linear-gradient(45deg, #c29c56, #ffd700, #8b6b30);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+}
+

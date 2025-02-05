@@ -1,0 +1,16 @@
+:root {
+    --card-top-offset: 1em;
+  }
+  
+  .card {
+    position: sticky;
+    top: calc(var(--index) * var(--card-top-offset));
+    perspective: 1000px;
+  }
+  
+  
+  .card__content:hover img {
+    transform: scale(1.1);
+  }
+  
+  
