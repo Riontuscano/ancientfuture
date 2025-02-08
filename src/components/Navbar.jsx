@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useLogout from '../hooks/useLogout';
 
 const Navbar = (props) => {
   const { mode, togglemode } = props;
   const [isLogin, setLogin] = useState(true);
+  const [profilePic, setProfilePic] = useState('/hero_home.png'); // Default image
+  const {loading,logout} = useLogout()
 
-  const handleLogin = () => {
-    setLogin(!isLogin);
+ 
+  useEffect(() => {
+    const authCred = localStorage.getItem("auth-cred");
+    if (authCred) {
+      try {
+        const authData = JSON.parse(authCred);
+        if (authData?.profilePic) {
+          setProfilePic(authData.profilePic);
+          setLogin(!isLogin);
+        }
+      } catch (error) {
+        console.error("Error parsing auth-cred:", error);
+      }
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    await logout()
+    setLogin(false);
   };
 
   return (
@@ -51,7 +71,7 @@ const Navbar = (props) => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Profile pic"
-                  src="/hero_home.png"
+                  src={profilePic} 
                   className="w-full rounded-full object-cover"
                 />
               </div>
@@ -72,9 +92,9 @@ const Navbar = (props) => {
                 <li>
                   <a>Settings</a>
                 </li>
-                <li onClick={handleLogin}>
+                <li onClick={handleLogout}>
 
-           <Link to="/">Logout</Link>
+           <Link on to="/">Logout</Link>
                 </li>
               </ul>
             )}
@@ -85,12 +105,6 @@ const Navbar = (props) => {
                   mode ? 'text-gray-400 bg-gray-900' : 'text-gray-800 bg-gray-200'
                 }`}
               >
-                <li onClick={handleLogin}>
-                <Link to='/login' className="justify-between">         
-                    Login
-                    <span className="badge">Now</span>
-                </Link>
-                </li>
                 <li>
                   <a>Help</a>
                 </li>

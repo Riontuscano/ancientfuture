@@ -48,7 +48,7 @@ export const loginUser = async (req, res) => {
         if (!isMatch) {
           return res.status(401).json({ error: "Invalid password or username" });
         }else{
-            res.status(200).json({ user });
+            res.status(200).json( user );
         }
       });
       
@@ -61,7 +61,7 @@ export const loginUser = async (req, res) => {
 export const logoutUser = async (req, res) => {
     try {
         res.clearCookie('token');
-        res.status(200).json({ message: "Logged out successfully" });
+        res.status(200).json({success:true, message: "Logged out successfully" });
         } catch (error) {
             res.status(500).json({ Error: error.message });
             }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '../hooks/useLogin';
+import useSignup from '../hooks/useSignup';
 
 
 const Login = () => {
@@ -19,10 +20,15 @@ const Login = () => {
   })
 
  const {loading,login} = useLogin()
+ const {loadings,signup} = useSignup()
  
 	const handleSubmit = async(e) => {
 		e.preventDefault();
-		await login(inputs);
+    if(isLogin){
+     await login(inputs);
+    }else{
+      await signup(inputs)
+    }
 	}
 
   const handleisLoginToggle = () => {
@@ -136,7 +142,7 @@ const Login = () => {
                   </p>
                 </div>
 
-         {loading ?( <button
+         {loadings ?( <button
             type="submit"
             className="w-full bg-white text-black py-2 my-10 px-4 rounded hover:bg-gray-400 
               transition duration-200"
