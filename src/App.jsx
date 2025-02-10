@@ -6,6 +6,7 @@ import Hoveranim from './components/Hoveranim';
 import Frontpage from './components/Frontpage';
 import { Toaster } from 'react-hot-toast';
 import { useAuthContext } from "./context/AuthContext";
+import LearnSection from './components/LearnSection';
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={ authUser ? <>   <Hoveranim />   <Frontpage mode={mode}/> </> : <Navigate to="/authway" /> } />
           <Route path="/authway" element={ !authUser ?  <Authway setlogin={toggleLogin} /> : <Navigate to="/" />}/>
+          <Route path="/learn" element={<LearnSection/>} />
           <Route path="*" element={<div>404 - Page Not Found</div>} />
 
         </Routes>

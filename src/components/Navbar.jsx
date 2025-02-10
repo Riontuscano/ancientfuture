@@ -40,10 +40,18 @@ const Navbar = (props) => {
           <Link
             to="/"
             className={`btn btn-ghost text-xl ${
-              mode ? 'text-gold tracking-wide font-ancient' : 'text-gold tracking-wide font-ancient'
-            }`}
+              mode ? 'text-gold ' : 'text-yellow-900 '
+            } tracking-wide font-ancient `}
           >
             AncientFuture
+          </Link>
+          <Link
+            to="/learn"
+            className={`btn btn-ghost text-xl ${
+              mode ? 'text-gray-400 ' : 'text-gray-900 '
+            } tracking-wide font-ancient `}
+          >
+            Learn More
           </Link>
         </div>
         <div className="flex-none gap-2">
