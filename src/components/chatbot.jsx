@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, MessageCircle, Send, Loader2 } from 'lucide-react';
 
-const Chatbot = () => {
+const Chatbot = ({mode}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -39,7 +39,7 @@ const Chatbot = () => {
 
       <button
         onClick={toggleChat}
-        className={`fixed right-6 bottom-6 p-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-10 ${
+        className={`fixed right-8 bottom-6 p-4 bg-black text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-10 ${
           isOpen ? 'hidden' : ''
         }`}
       >

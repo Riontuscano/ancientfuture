@@ -35,7 +35,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={ authUser ? <>   <Hoveranim />   <Frontpage mode={mode}/> </> : <Navigate to="/authway" /> } />
           <Route path="/authway" element={ !authUser ?  <Authway setlogin={toggleLogin} /> : <Navigate to="/" />}/>
-          <Route path="/learn" element={<LearnSection/>} />
+          <Route path="/learn" element={<LearnSection mode={mode}/>} />
           <Route path="*" element={<div>404 - Page Not Found</div>} />
 
         </Routes>

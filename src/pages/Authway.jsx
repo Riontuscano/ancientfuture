@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '../hooks/useLogin';
 import useSignup from '../hooks/useSignup';
-
+import { Loader2 } from 'lucide-react';
 
 const Login = () => {
 
@@ -15,19 +15,19 @@ const Login = () => {
     fullname:"",
     username:"",
     password:"",
-    confirmpassword:"",
+    confirmPassword:"",
     gender:"",
   })
 
  const {loading,login} = useLogin()
- const {loadings,signup} = useSignup()
+ const {loadings,signUp} = useSignup()
  
 	const handleSubmit = async(e) => {
 		e.preventDefault();
     if(isLogin){
      await login(inputs);
     }else{
-      await signup(inputs)
+      await signUp(inputs)
     }
 	}
 
@@ -111,10 +111,10 @@ const Login = () => {
             </label>
             <input
               type="password"
-              name='confirmpassword'
-              id="confirmpassword"
+              name='confirmPassword'
+              id="confirmPassword"
               onChange={handleInputChange}
-              value={inputs.confirmpassword}
+              value={inputs.confirmPassword}
               placeholder="Enter your password"
               className="w-full mt-1 p-2 bg-gray-900 text-gray-200 rounded border border-gray-700 
                 focus:outline-none focus:ring-2 focus:ring-white"
@@ -124,8 +124,8 @@ const Login = () => {
                     <label htmlFor="gender" className="form-label">Gender</label>
                     <select className="select select-bordered w-full max-w-xs bg-gray-900  border-gray-700" onChange={handleInputChange} name='gender' value={inputs.gender}>
                       <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                     </select>
                   </div>)}
        
@@ -137,25 +137,40 @@ const Login = () => {
                       className="btn btn-link p-0"
                       onClick={handleisLoginToggle}
                     >
-                      {isLogin ? 'Sign Up' : 'isLogin'}
+                      {isLogin ? 'Sign Up' : 'Login'}
                     </button>
                   </p>
                 </div>
 
-         {loadings ?( <button
-            type="submit"
-            className="w-full bg-white text-black py-2 my-10 px-4 rounded hover:bg-gray-400 
-              transition duration-200"
-          >
-            {isLogin ? "Login":"Create Account"}
-          </button>):<button
-            type="submit"
-            className="w-full bg-white text-black py-2 my-10 px-4 rounded hover:bg-gray-400 
-              transition duration-200"
-      
-          >
-            {isLogin ? "Login":"Create Account"}
-          </button>}
+         { isLogin ? (   <button
+      type="submit"
+      disabled={loading}
+      className="w-full bg-white text-black py-2 my-10 px-4 rounded hover:bg-gray-400 
+        transition duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+    >
+      {loading ? (
+        <>
+          <Loader2 className="w-5 h-5 animate-spin" />
+          <span>{"Logging in..."}</span>
+        </>
+      ) : (
+        <span>{"Login"}</span>
+      )}
+    </button> ): ( <button
+      type="submit"
+      disabled={loadings}
+      className="w-full bg-white text-black py-2 my-10 px-4 rounded hover:bg-gray-400 
+        transition duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+    >
+      {loadings? (
+        <>
+          <Loader2 className="w-5 h-5 animate-spin" />
+          <span>{"Signing in..."}</span>
+        </>
+      ) : (
+        <span>{"Sign Up"}</span>
+      )}
+    </button>)}  
         </form>
 
       </div>

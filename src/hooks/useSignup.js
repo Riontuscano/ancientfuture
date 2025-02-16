@@ -7,24 +7,24 @@ const useSignup = () => {
     const {setAuthUser} = useAuthContext()
 
     const signUp = async ({ fullname, username, password, confirmPassword, gender }) => {
-        const success = handleInputErrors({ fullname, username, email, password, confirmPassword, gender });
+        const success = handleInputErrors({ fullname, username, password, confirmPassword, gender });
         if(!success) return false
         setloadings(true)
         try {
-            const response = await fetch('http://localhost:5500/api/auth/login', {
+            const response = await fetch('http://localhost:5500/api/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
 
-                body: JSON.stringify({ fullname, username,email, password ,confirmPassword , gender }),
+                body: JSON.stringify({ fullname, username, password ,confirmPassword , gender }),
                 credentials: "include" 
             })
             const data = await response.json()
             if(data.error){
                 throw new Error(data.error);
             }
-            localStorage.setItem('auth-cred',JSON.stringify(data))
+            localStorage.setItem('auth-cred',JSON.stringify(data.user))
             setAuthUser(data);
             toast.success("Signup Successfully Done")
         } catch (error) {
@@ -38,10 +38,9 @@ const useSignup = () => {
 
 export default useSignup
 
-function handleInputErrors({ fullname, username ,email, password, confirmPassword, gender }) {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+function handleInputErrors({ fullname, username , password, confirmPassword, gender }) {
     
-    if (!fullname || !username || !password || !confirmPassword || !gender || !email) {
+    if (!fullname || !username || !password || !confirmPassword || !gender ) {
         toast.error('Please fill all the fields');
         return false;
     } else if (username.length < 3) {
@@ -49,9 +48,6 @@ function handleInputErrors({ fullname, username ,email, password, confirmPasswor
         return false;
     } else if (password !== confirmPassword) {
         toast.error('Passwords do not match');
-        return false;
-    } else if (!emailRegex.test(email)) {
-        toast.error('Enter a valid email');
         return false;
     } else if (password.length < 8) {
         toast.error('Password should be at least 8 characters long');

@@ -1,176 +1,94 @@
 import React, { useState } from 'react';
-import { FileText, ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, RotateCw } from 'lucide-react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
+import { FileText, ChevronRight, PanelLeftClose } from 'lucide-react';
 import Chatbot from './chatbot';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
-const PDFLayout = () => {
+const PDFLayout = ({mode}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedPDF, setSelectedPDF] = useState(null);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(1.0);
 
   const pdfList = [
     { id: 1, name: 'Lecture 1.pdf', url: '/pdfs/Day1.pdf' },
     { id: 2, name: 'Lecture 2.pdf', url: '/pdfs/Day2.pdf' },
     { id: 3, name: 'Lecture 3.pdf', url: '/pdfs/Day3.pdf' },
     { id: 4, name: 'Lecture 4.pdf', url: '/pdfs/Day4.pdf' },
-    { id: 5, name: 'Lecture 5.pdf', url: '/pdfs/Day5.pdf' },
-    { id: 6, name: 'Lecture 6.pdf', url: '/pdfs/Day6.pdf' },
-    { id: 7, name: 'Lecture 7.pdf', url: '/pdfs/Day7.pdf' },
-    { id: 8, name: 'Lecture 8.pdf', url: '/pdfs/Day8.pdf' },
+    { id: 5, name: 'Lecture 5.pdf', url: '/pdfs/Day6.pdf' },
+    { id: 6, name: 'Lecture 6.pdf', url: '/pdfs/Day7.pdf' },
+    { id: 7, name: 'Lecture 7.pdf', url: '/pdfs/Day8.pdf' },
+    { id: 8, name: 'Lecture 8.pdf', url: '/pdfs/Day9.pdf' },
   ];
-  
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const handlePDFSelect = (pdf) => {
-    setSelectedPDF(pdf);
-    setPageNumber(1);
-    setScale(1.0);
-  };
-
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
-
-  const changePage = (offset) => {
-    setPageNumber(prevPageNumber => Math.min(Math.max(1, prevPageNumber + offset), numPages));
-  };
-
-  const zoomIn = () => setScale(prev => Math.min(prev + 0.1, 2.0));
-  const zoomOut = () => setScale(prev => Math.max(prev - 0.1, 0.5));
 
   return (
     <>
-      <Chatbot/>
-    <div className="fixed inset-0 mt-16 flex">
-      <div
-        className={`bg-gray-50 border-r border-gray-200 transition-all duration-300 ${
-          isSidebarOpen ? 'w-72' : 'w-0'
-        } overflow-hidden flex flex-col h-screen`}
-      >
-        <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-700">Documents</h2>
-          <button 
-            onClick={toggleSidebar}
-            className="text-gray-500 hover:text-gray-700"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto p-4">
-          <div className="space-y-2">
-            {pdfList.map((pdf) => (
-              <button
-                key={pdf.id}
-                onClick={() => handlePDFSelect(pdf)}
-                className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                  selectedPDF?.id === pdf.id
-                    ? 'bg-violet-100 text-violet-700 font-medium'
-                    : 'hover:bg-gray-100'
-                } flex items-center gap-3`}
-              >
-                <FileText className="w-5 h-5 flex-shrink-0" />
-                <span className="truncate">{pdf.name}</span>
-              </button>
-            ))}
+      <Chatbot mode={mode} />
+      <div className="fixed inset-0 mt-16 flex">
+        <div
+          className={`${!mode ? 'bg-gray-50 border-r border-gray-200':'bg-gray-900 border-r border-gray-900'} transition-all duration-300 ${
+            isSidebarOpen ? 'w-72' : 'w-0'
+          } overflow-hidden flex flex-col h-screen`}
+        >
+          <div className={`p-4 border-b ${!mode ? 'border-gray-300':'border-gray-600'} flex justify-between items-center`}>
+          <h2 className={`text-xl font-semibold ${!mode ? 'text-gray-700':'text-gray-400'}`}>Documents</h2>
+            <button 
+              onClick={() => setIsSidebarOpen(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <PanelLeftClose className={`w-5 h-5 ${mode ? 'text-gray-300': 'text-gray-700'} font-medium`}/>
+            </button>
+          </div>
+          
+          <div className="flex-1 overflow-y-auto p-4">
+            <div className="space-y-2">
+              {pdfList.map((pdf) => (
+                <button
+                  key={pdf.id}
+                  onClick={() => setSelectedPDF(pdf)}
+                  className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                    selectedPDF?.id === pdf.id
+                      ? `bg-purple-100 text-purple-700 font-medium`
+                      : `${!mode ? 'hover:bg-gray-200 hover:text-gray-700' : 'hover:bg-gray-800 hover:text-gray-300'}`
+                  } flex items-center gap-3`}
+                >
+                  <FileText className="w-5 h-5 flex-shrink-0" />
+                  <span className="truncate">{pdf.name}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {!isSidebarOpen && (
-        <button
-          onClick={toggleSidebar}
-          className="fixed left-4 top-20 z-10 bg-white p-2 rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
-        >
-          <ChevronRight className="w-5 h-5 text-gray-600" />
-          <span className="text-gray-600 font-medium">Documents</span>
-        </button>
-      )}
+        {!isSidebarOpen && (
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className={`fixed left-4 top-20 z-10 ${!mode ? 'bg-gray-800':'bg-white'} p-2 border rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2`}
+          >
+            <ChevronRight className={`w-5 h-5 ${mode ? 'text-gray-800':'text-gray-200'} font-medium`}/>
+          </button>
+        )}
 
-      <div className="flex-1 bg-gray-100 h-screen overflow-hidden">
-        {selectedPDF ? (
-          <div className="h-full flex flex-col p-6">
-            <div className="bg-white rounded-lg shadow-sm p-4 mb-4 flex items-center justify-between">
-              <h1 className="text-xl font-semibold text-gray-800">
-                {selectedPDF.name}
-              </h1>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <button 
-                    onClick={zoomOut}
-                    className="p-1 hover:bg-gray-100 rounded"
-                  >
-                    <ZoomOut className="w-5 h-5" />
-                  </button>
-                  <span>{Math.round(scale * 100)}%</span>
-                  <button 
-                    onClick={zoomIn}
-                    className="p-1 hover:bg-gray-100 rounded"
-                  >
-                    <ZoomIn className="w-5 h-5" />
-                  </button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button 
-                    onClick={() => changePage(-1)} 
-                    disabled={pageNumber <= 1}
-                    className="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 disabled:opacity-50"
-                  >
-                    Previous
-                  </button>
-                  <span className="text-gray-600">
-                    {pageNumber} / {numPages}
-                  </span>
-                  <button 
-                    onClick={() => changePage(1)} 
-                    disabled={pageNumber >= numPages}
-                    className="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 disabled:opacity-50"
-                  >
-                    Next
-                  </button>
-                </div>
+        <div className = {`flex-1 ${mode ? 'bg-gray-800' : 'bg-gray-100'} h-screen overflow-hidden`}>
+          {selectedPDF ? (
+            <div className="h-full flex flex-col p-6">
+              <div className={`${mode ? 'bg-gray-900': 'bg-white'} rounded-lg shadow-sm p-4 mb-4`}>
+                <h1 className={`text-xl font-semibold ${mode ? 'text-gray-400' : 'text-gray-800'}`}>
+                  {selectedPDF.name}
+                </h1>
+              </div>
+              <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden">
+                <iframe
+                  src={selectedPDF.url}
+                  className="w-full h-full"
+                  title={selectedPDF.name}
+                />
               </div>
             </div>
-            <div className="flex-1 bg-white rounded-lg shadow-sm overflow-auto flex justify-center p-4">
-              <Document
-                file={selectedPDF.url}
-                onLoadSuccess={onDocumentLoadSuccess}
-                loading={
-                  <div className="flex items-center justify-center h-full">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-                  </div>
-                }
-                error={
-                  <div className="flex items-center justify-center h-full text-red-500">
-                    Failed to load PDF. Please check the URL and try again.
-                  </div>
-                }
-              >
-                <Page 
-                  pageNumber={pageNumber} 
-                  scale={scale}
-                  className="shadow-lg"
-                />
-              </Document>
+          ) : (
+            <div className="h-full flex items-center justify-center text-gray-500 flex-col gap-4">
+              <FileText className="w-16 h-16 text-gray-400" />
+              <p className="text-lg">Select a document to view</p>
             </div>
-          </div>
-        ) : (
-          <div className="h-full flex items-center justify-center text-gray-500 flex-col gap-4">
-            <FileText className="w-16 h-16 text-gray-400" />
-            <p className="text-lg">Select a document to view</p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
     </>
   );
 };
