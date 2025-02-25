@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, MessageCircle, Send, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 const Chatbot = ({ mode, groqApiKey }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -112,6 +113,16 @@ const Chatbot = ({ mode, groqApiKey }) => {
     }
   };
 
+  // Function to render message with formatting
+  const renderFormattedMessage = (text) => {
+    // Use ReactMarkdown for rendering markdown formatting
+    return (
+      <ReactMarkdown>
+        {text}
+      </ReactMarkdown>
+    );
+  };
+
   return (
     <>
       <button
@@ -163,7 +174,9 @@ const Chatbot = ({ mode, groqApiKey }) => {
                       : 'bg-gray-700/50 backdrop-blur-sm'
                   }`}
                 >
-                  <p className="text-sm">{message.text}</p>
+                  <div className="text-sm markdown-content">
+                    {message.sender === 'bot' ? renderFormattedMessage(message.text) : message.text}
+                  </div>
                   <p className="text-xs mt-1 opacity-70">
                     {message.timestamp.toLocaleTimeString([], {
                       hour: '2-digit',
@@ -177,7 +190,9 @@ const Chatbot = ({ mode, groqApiKey }) => {
             {typingText && (
               <div className="mb-4 text-left">
                 <div className="inline-block p-3 rounded-2xl max-w-[80%] bg-gray-700/50 backdrop-blur-sm">
-                  <p className="text-sm">{typingText}</p>
+                  <div className="text-sm markdown-content">
+                    {renderFormattedMessage(typingText)}
+                  </div>
                   <div className="flex items-center gap-1 mt-1">
                     <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0ms'}}></span>
                     <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '300ms'}}></span>
