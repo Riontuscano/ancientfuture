@@ -48,14 +48,14 @@ const Chatbot = ({mode}) => {
 
 
       <div
-        className={`fixed right-0 top-0 h-full w-96 bg-white/10 backdrop-blur-lg shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed right-0 top-0 h-full w-2/5 bg-white/10 backdrop-blur-lg shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="h-full bg-gradient-to-b from-gray-900/95 to-gray-900/90 text-white">
           <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 flex justify-between items-center">
             <div>
-              <h2 className="text-lg font-semibold">Chat Support</h2>
+              <h2 className="text-lg font-semibold"></h2>
               <p className="text-xs text-gray-200">We typically reply in a few minutes</p>
             </div>
             <button
