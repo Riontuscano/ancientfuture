@@ -19,7 +19,7 @@ const PDFLayout = ({mode}) => {
 
   return (
     <>
-      <Chatbot mode={mode} />
+      <Chatbot mode={mode} groqApiKey ="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" />
       <div className="fixed inset-0 mt-16 flex">
         <div
           className={`${!mode ? 'bg-gray-50 border-r border-gray-200':'bg-gray-900 border-r border-gray-900'} transition-all duration-300 ${

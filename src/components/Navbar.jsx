@@ -1,12 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
-
+import { CircleUser } from 'lucide-react';
 const Navbar = (props) => {
   const { mode, togglemode } = props;
   const [isLogin, setLogin] = useState(true);
-  const [profilePic, setProfilePic] = useState('/hero_home.png'); // Default image
-  const {loading,logout} = useLogout()
+  const [profilePic, setProfilePic] = useState('/default-user.webp'); // Default image
+  const {logout} = useLogout()
 
  
   useEffect(() => {
@@ -75,13 +75,13 @@ const Navbar = (props) => {
             </svg>
           </label>
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">
               <div className="w-10 rounded-full">
-                <img
+               { profilePic == '/default-user.webp' ? <CircleUser  size={36} className="w-full mt-[3px] rounded-full object-cover text-gray-400" />:<img
                   alt="Profile pic"
                   src={profilePic} 
                   className="w-full rounded-full object-cover"
-                />
+                />}
               </div>
             </div>
             {!isLogin && (
