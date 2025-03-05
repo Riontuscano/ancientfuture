@@ -58,7 +58,7 @@ const Hoveranim = () => {
         <div className="absolute z-10 inset-0 flex items-center justify-center">
           <div className="relative w-fit h-full  overflow-hidden">            
             <img
-              src="/hero_home.png"
+              src="/dragon3.png"
               alt="Space Object"
               className="relative w-full h-full  opacity-90 "
 

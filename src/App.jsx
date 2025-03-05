@@ -7,6 +7,8 @@ import Frontpage from './components/Frontpage';
 import { Toaster } from 'react-hot-toast';
 import { useAuthContext } from "./context/AuthContext";
 import LearnSection from './components/LearnSection';
+import UserProfile from './components/ProfilePage';
+import Footer from './components/Footer';
 
 
 const App = () => {
@@ -31,15 +33,18 @@ const App = () => {
   return (
     <Router>
       <div>
+   
         <Navbar togglemode={darklightMode} mode={mode} />
         <Routes>
           <Route path="/" element={ authUser ? <>   <Hoveranim />   <Frontpage mode={mode}/> </> : <Navigate to="/authway" /> } />
+          <Route path='/profile' element={ authUser ?    <UserProfile mode={mode} />: <Navigate to="/authway" /> } />
           <Route path="/authway" element={ !authUser ?  <Authway setlogin={toggleLogin} /> : <Navigate to="/" />}/>
           <Route path="/learn" element={<LearnSection mode={mode}/>} />
           <Route path="*" element={<div>404 - Page Not Found</div>} />
 
         </Routes>
        <Toaster />
+        <Footer mode={mode} /> 
       </div>
     </Router>
   );

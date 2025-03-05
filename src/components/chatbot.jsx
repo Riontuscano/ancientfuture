@@ -64,12 +64,11 @@ const Chatbot = ({ mode, groqApiKey }) => {
     let currentText = '';
     
     for (let i = 0; i < words.length; i++) {
-      // Add the word to the current text
       currentText += (i > 0 ? ' ' : '') + words[i];
       setTypingText(currentText);
       
       // Random delay between words (faster for short words, slower for longer ones)
-      const delay = Math.max(50, Math.min(150, words[i].length * 20));
+      const delay = Math.max(50, Math.min(150, words[i].length ));
       await new Promise(resolve => setTimeout(resolve, delay));
     }
     
@@ -135,7 +134,7 @@ const Chatbot = ({ mode, groqApiKey }) => {
       </button>
 
       <div
-        className={`fixed right-0 top-0 h-full w-2/5 bg-white/10 backdrop-blur-lg shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed right-0 top-0 h-full w-3/5 bg-white/10 backdrop-blur-lg shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -205,7 +204,7 @@ const Chatbot = ({ mode, groqApiKey }) => {
             {isTyping && !typingText && (
               <div className="flex items-center gap-2 text-gray-400 ml-2">
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span className="text-sm">Typing...</span>
+                <span className="text-sm">Thinking...</span>
               </div>
             )}
             

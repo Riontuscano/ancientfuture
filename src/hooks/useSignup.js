@@ -28,6 +28,7 @@ const useSignup = () => {
             setAuthUser(data);
             toast.success("Signup Successfully Done")
         } catch (error) {
+            toast.error(error.message)
             throw new Error(error)
         }finally{
             setloadings(false)

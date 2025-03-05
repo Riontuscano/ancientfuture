@@ -12,7 +12,7 @@ export const signUp  = async (req, res) => {
         }
 
     let user = await User.findOne({ username });
-    if (user) return res.status(400).json({ message: "Username already exists" });
+    if (user) return res.status(400).json({ error: "Username already taken" });
 
     const boyPic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
     const girlPic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
@@ -39,7 +39,7 @@ export const loginUser = async (req, res) => {
     try {
       const { username, password } = req.body;
       const user = await User.findOne({ username });
-      if (!user) return res.status(401).json({ message: "Invalid username or password"})
+      if (!user) return res.status(401).json({ error: "Invalid username or password"})
       bcrypt.compare(password, user?.password || "", (err, isMatch) => {
         if (err) {
           console.error("Error comparing passwords:", err);

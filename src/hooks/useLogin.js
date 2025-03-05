@@ -23,6 +23,11 @@ const useLogin = () => {
             const data = await response.json()
             if(data.error){
                 throw new Error(data.error);
+            }else if(data.Error){
+                if(data.Error.includes('users.findOne()')){
+                    throw new Error('Server Timeout')
+                }
+                throw new Error(data.Error);
             }
             localStorage.setItem('auth-cred',JSON.stringify(data))
             setAuthUser(data);
