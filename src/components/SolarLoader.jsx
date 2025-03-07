@@ -39,7 +39,7 @@ const SolarLoader = () => {
 const AncientFacts = () => {
   return (
     <>
-      <Text position={[-4, 8, 3]} fontSize={0.5} color="white">
+      {/* <Text position={[-4, 8, 3]} fontSize={0.5} color="white">
         🏛️ Did you know? The world's first university, Takshashila, was in
         Ancient India!
       </Text>
@@ -67,7 +67,7 @@ const AncientFacts = () => {
       <Text position={[6, -6, 4]} fontSize={0.5} color="white">
         🏹 Did you know? Chess (Chaturanga) was invented in India around the 6th
         century CE!
-      </Text>
+      </Text> */}
     </>
   );
 };

@@ -54,12 +54,11 @@ const Chatbot = ({ mode, groqApiKey }) => {
     }
   };
 
-  // Simulate typing animation for the bot response
   const simulateTyping = async (text) => {
     setIsTyping(true);
     setTypingText('');
     
-    // Split the text into smaller chunks to simulate natural typing
+  
     const words = text.split(' ');
     let currentText = '';
     
@@ -67,15 +66,13 @@ const Chatbot = ({ mode, groqApiKey }) => {
       currentText += (i > 0 ? ' ' : '') + words[i];
       setTypingText(currentText);
       
-      // Random delay between words (faster for short words, slower for longer ones)
+
       const delay = Math.max(50, Math.min(150, words[i].length ));
       await new Promise(resolve => setTimeout(resolve, delay));
     }
-    
-    // Add a small delay at the end to make it feel more natural
+
     await new Promise(resolve => setTimeout(resolve, 300));
     
-    // Add the completed message to the messages array
     setMessages(prevMessages => [
       ...prevMessages,
       { 
@@ -85,7 +82,6 @@ const Chatbot = ({ mode, groqApiKey }) => {
       }
     ]);
     
-    // Clear the typing indicator
     setTypingText('');
     setIsTyping(false);
   };
@@ -100,10 +96,9 @@ const Chatbot = ({ mode, groqApiKey }) => {
       setIsTyping(true);
 
       try {
-        // Call Groq API
+
         const botResponse = await callGroqAPI(inputMessage);
         
-        // Use the typing animation instead of immediately adding the message
         await simulateTyping(botResponse);
       } catch (error) {
         // Handle errors with typing animation too

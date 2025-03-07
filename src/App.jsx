@@ -9,6 +9,7 @@ import { useAuthContext } from "./context/AuthContext";
 import LearnSection from './components/LearnSection';
 import UserProfile from './components/ProfilePage';
 import Footer from './components/Footer';
+import SplashCursor from './components/CusorEffect';
 
 
 const App = () => {
@@ -33,7 +34,7 @@ const App = () => {
   return (
     <Router>
       <div>
-   
+      {/* <SplashCursor /> */}
         <Navbar togglemode={darklightMode} mode={mode} />
         <Routes>
           <Route path="/" element={ authUser ? <>   <Hoveranim />   <Frontpage mode={mode}/> </> : <Navigate to="/authway" /> } />

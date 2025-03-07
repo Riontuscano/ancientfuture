@@ -46,8 +46,6 @@ const UserProfile = ({mode}) => {
       ...isEditing,
       [field]: !isEditing[field]
     });
-
-    // Reset fields when canceling edit
     if (isEditing[field] && field === 'password') {
       setNewPassword('');
       setConfirmPassword('');
@@ -85,7 +83,7 @@ const UserProfile = ({mode}) => {
   };
 
   return (
-    <div className={`flex items-center justify-center min-h-screen ${mode ? "bg-gray-900 text-white": "text-gray-900 bg-gray-50" }  p-4`}>
+    <div className={`flex items-center justify-center min-h-screen ${mode ? "bg-black text-white": "text-gray-900 bg-gray-50" }  p-4`}>
       <div className="max-w-4xl w-full relative">
         {/* Profile Image - Positioned to overlap */}
         <div className="absolute left-1/2 transform -translate-x-1/2 -top-12  z-10">
