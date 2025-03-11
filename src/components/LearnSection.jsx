@@ -3,6 +3,7 @@ import { FileText, ChevronRight, PanelLeftClose } from 'lucide-react';
 import Chatbot from './chatbot';
 
 const PDFLayout = ({mode}) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedPDF, setSelectedPDF] = useState(null);
 
@@ -19,7 +20,7 @@ const PDFLayout = ({mode}) => {
 
   return (
     <>
-      <Chatbot mode={mode} groqApiKey ="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" />
+      <Chatbot mode={mode} groqApiKey ={apiUrl} />
       <div className="fixed inset-0 mt-16 flex">
         <div
           className={`${!mode ? 'bg-gray-50 border-r border-gray-200':'bg-gray-900 border-r border-gray-900'} transition-all duration-300 ${
