@@ -41,7 +41,7 @@ export default useSignup
 
 function handleInputErrors({ fullname, username , password, confirmPassword, gender }) {
     
-    if (!fullname || !username || !password || !confirmPassword || !gender ) {
+    if (!fullname || !username || !password || !confirmPassword || !gender) {
         toast.error('Please fill all the fields');
         return false;
     } else if (username.length < 3) {
@@ -53,7 +53,11 @@ function handleInputErrors({ fullname, username , password, confirmPassword, gen
     } else if (password.length < 8) {
         toast.error('Password should be at least 8 characters long');
         return false;
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])/.test(password)) {
+        toast.error('Password must contain at least one uppercase letter, one lowercase letter, and one special character');
+        return false;
     } else {
         return true;
     }
+    
 }
