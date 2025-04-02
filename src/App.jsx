@@ -5,11 +5,12 @@ import Authway from './pages/Authway';
 import Hoveranim from './components/Hoveranim';
 import Frontpage from './components/Frontpage';
 import { Toaster } from 'react-hot-toast';
-import { useAuthContext } from "./context/AuthContext";
 import LearnSection from './components/LearnSection';
 import UserProfile from './components/ProfilePage';
 import Footer from './components/Footer';
 import SplashCursor from './components/CusorEffect';
+import { useAuthContext } from './context/authContext';
+import TryAr from './pages/TryAr';
 
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
           <Route path='/profile' element={ authUser ?    <UserProfile mode={mode} />: <Navigate to="/authway" /> } />
           <Route path="/authway" element={ !authUser ?  <Authway setlogin={toggleLogin} /> : <Navigate to="/" />}/>
           <Route path="/learn" element={<LearnSection mode={mode}/>} />
+          <Route path="/tryar" element={<TryAr mode={mode}/>} />
           <Route path="*" element={<div>404 - Page Not Found</div>} />
 
         </Routes>

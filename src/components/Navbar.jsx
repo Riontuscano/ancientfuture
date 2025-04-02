@@ -53,6 +53,14 @@ const Navbar = (props) => {
           >
             Learn More
           </Link>
+          <Link
+            to="/tryar"
+            className={`btn btn-ghost text-xl ${
+              mode ? 'text-gray-400 ' : 'text-gray-900 '
+            } tracking-wide font-ancient `}
+          >
+            Try AR
+          </Link>
         </div>
         <div className="flex-none gap-2">
           <label className="swap swap-rotate">

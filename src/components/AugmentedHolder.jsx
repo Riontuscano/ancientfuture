@@ -1,5 +1,6 @@
 import React from 'react';
 import QRCard from './AugmentatedCard';
+import { model } from 'mongoose';
 
 const AugmentedHolder = (props) => {
   const modals = [
@@ -53,9 +54,69 @@ const AugmentedHolder = (props) => {
     },
   ];
   
+  const modals2 = [
+    {
+      id: 'card_1',
+      title: 'Rhino',
+      description: 'Rhinoceroses are large, herbivorous mammals known for their thick skin and distinctive horns. They are found in Africa and Asia and are critically endangered due to poaching and habitat loss.',
+      image: 'src/assets/img/rhino.jpeg',
+      year: 'Prehistoric to Present',
+      qrValue: 'https://playcanv.as/b/b031ee02',
+    },
+    {
+      id: 'card_2',
+      title: 'Giraffe',
+      description: 'The giraffe is the tallest living terrestrial animal, recognized for its long neck and unique spotted coat. It inhabits African savannas, feeding on tree leaves using its long tongue.',
+      image: 'src/assets/img/giraffe.jpg',
+      year: 'Ancient to Present',
+      qrValue: 'https://playcanv.as/b/cb0725eb',
+    },
+    {
+      id: 'card_3',
+      title: 'Cow',
+      description: 'Cows are domesticated bovines that have been integral to agriculture for thousands of years, providing milk, meat, and labor. They are revered in various cultures, particularly in India.',
+      image: 'src/assets/img/cow.jpg',
+      year: 'Domesticated for Over 10,000 Years',
+      qrValue: 'https://playcanv.as/b/c13e97b6',
+    },
+    {
+      id: 'card_4',
+      title: 'Banana Tree',
+      description: 'The banana tree is a fast-growing tropical plant that produces bananas, one of the most widely consumed fruits in the world. Its leaves are also used for cooking and packaging food.',
+      image: 'src/assets/img/banana.png',
+      year: 'Cultivated for Over 7,000 Years',
+      qrValue: 'https://playcanv.as/b/158eb55a',
+    },
+    {
+      id: 'card_5',
+      title: 'Pine Tree',
+      description: 'Pine trees are evergreen conifers with needle-like leaves and woody cones. They are found across the globe and are commonly used for timber, resin, and as Christmas trees.',
+      image: 'src/assets/img/pine.png',
+      year: 'Ancient to Present',
+      qrValue: 'https://playcanv.as/b/fe2b208d',
+    },
+    {
+      id: 'card_6',
+      title: 'Triceratops Baby Dinosaur',
+      description: 'Triceratops was a large, herbivorous dinosaur from the Late Cretaceous period. Its three horns and frilled skull made it one of the most recognizable dinosaurs of its time.',
+      image: 'src/assets/img/trice.jpg',
+      year: '68-66 Million Years Ago',
+      qrValue: 'https://playcanv.as/b/d3f3d747',
+    },
+    {
+      id: 'card_7',
+      title: 'Suchomimus',
+      description: 'Suchomimus was a spinosaurid dinosaur that lived during the Early Cretaceous period. It had a long, crocodile-like snout, suggesting a diet that primarily consisted of fish.',
+      image: 'src/assets/img/waterdino.jpg',
+      year: '112 Million Years Ago',
+      qrValue: 'https://playcanv.as/b/2decd32e',
+    },
+];
+
+
   return (
 
-    <div className={`min-h-screen ${props.mode  ? 'bg-black' : 'bg-white'} p-8`}>
+    <div className={`min-h-screen ${props.mode  ? 'bg-black' : 'bg-white'} p-8 pt-20`}>
     <div className="max-w-7xl mx-auto">
         <h1 className={`text-center text-4xl ${props.mode  ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient mb-8`}>
             {('Into ancient india (AR) ').toUpperCase()}
@@ -74,6 +135,24 @@ const AugmentedHolder = (props) => {
       />
   ))}    
     </div>
+    <h2 className={`text-center mt-20 text-4xl ${props.mode  ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient mb-8`}>
+            {('Animal Kingdom And Trees').toUpperCase()}
+        </h2>
+
+    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 ${props.mode ? 'bg-black':'bg-white'}`}>
+    
+  { modals2.map((modal)=>( <QRCard 
+        key={modal.id}
+        title= {modal.title}
+        image={modal.image}
+        description={modal.description}
+        qrValue={modal.qrValue}
+        year={modal.year}
+        mode={props.mode}
+      />
+  ))}    
+    </div>
+
     </div>
     </div>
   );

@@ -12,7 +12,6 @@ const Frontpage = ({mode}) => {
         <YogaSocialPost mode={mode}/>
         <GuruHolder mode={mode}/> 
         {/* <SolarLoader mode={mode}/> */}
-        <AugmentedHolder mode={mode}/>
 
  
     </>
