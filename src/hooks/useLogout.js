@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { useAuthContext } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 
+const API = import.meta.env.VITE_API_URL
 const useLogout = () => {
     const [loading, setloading] = useState(false)
     const {setAuthUser} = useAuthContext()
     const logout = async () => {
         setloading(true)
         try {
-            const response = await fetch('http://localhost:5500/api/auth/logout', {
+            const response = await fetch(`${API}/api/auth/logout`, {
                 method: 'GET',
             })
             

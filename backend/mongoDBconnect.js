@@ -1,15 +1,23 @@
 import mongoose from "mongoose";
 
-const connectDB = async() => {
-    const mongo_url = process.env.MONGO_DB_URL;
-    await mongoose.connect(mongo_url)
-    .then(()=>{
-        console.log("MongoDB connected successfully");
-    })
-    .catch((err)=>{
-        console.log("Error connecting to MongoDB",err);
-    })
+const connectDB = async () => {
+    try {
+        const mongo_url = process.env.MONGO_DB_URL;
+        if (!mongo_url) {
+            throw new Error("MongoDB connection string is missing in environment variables.");
+        }
 
-}
+        await mongoose.connect(mongo_url, {
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true,
+        });
 
-export default connectDB;  
+        console.log("✅ MongoDB connected successfully");
+    } catch (err) {
+        console.error("❌ Error connecting to MongoDB:", err.message);
+    }
+};
+
+export default connectDB;
+
+//crceseca10464

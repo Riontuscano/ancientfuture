@@ -4,7 +4,7 @@ import connectDB from './mongoDBconnect.js';
 import authRoutes from './routes/auth.routes.js';
 import cors from 'cors';
 
-dotenv.config()
+dotenv.config({ path: '.env.local' })
 
 const app = express();
 const port = process.env.PORT || 8080;
