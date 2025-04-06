@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useAuthContext } from '../context/AuthContext'
 import toast from 'react-hot-toast'
+import { useAuthContext } from '../context/AuthContext'
 
 const API = import.meta.env.VITE_API_URL
 const useLogout = () => {
