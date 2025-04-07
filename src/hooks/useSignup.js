@@ -1,12 +1,12 @@
 import  { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAuthContext } from '../context/AuthContext'
+// import { useAuthContext } from '../context/AuthContext'
 
 
 const API = import.meta.env.VITE_API_URL
 const useSignup = () => {
     const [loadings, setloadings] = useState(false)
-    const {setAuthUser} = useAuthContext()
+    // const {setAuthUser} = useAuthContext()
 
     const signUp = async ({ fullname, username, password, confirmPassword, gender }) => {
         const success = handleInputErrors({ fullname, username, password, confirmPassword, gender });
@@ -27,7 +27,7 @@ const useSignup = () => {
                 throw new Error(data.error);
             }
             localStorage.setItem('auth-cred',JSON.stringify(data.user))
-            setAuthUser(data);
+            // setAuthUser(data);
             toast.success("Signup Successfully Done")
         } catch (error) {
             toast.error(error.message)
