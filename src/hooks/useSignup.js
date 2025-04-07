@@ -3,7 +3,7 @@ import toast from 'react-hot-toast'
 import { useAuthContext } from '../context/AuthContext'
 
 
-const API = process.env.VITE_API_URL
+const API = import.meta.env.VITE_API_URL
 const useSignup = () => {
     const [loadings, setloadings] = useState(false)
     const {setAuthUser} = useAuthContext()

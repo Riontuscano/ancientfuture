@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import {
     Card,
@@ -13,8 +13,17 @@ import {
 } from "@material-tailwind/react";
 
 const QRCard = ({ title, description, image, year, qrValue, mode }) => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
     const handleOpen = () => setOpen(!open);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile(); // initial
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     return (
         <>
@@ -27,8 +36,19 @@ const QRCard = ({ title, description, image, year, qrValue, mode }) => {
                 }}
             >
                 <DialogHeader className="text-yellow-700 text-center font-ancient">SCAN TO VIEW</DialogHeader>
-                <div className="flex justify-center">
-                    <QRCodeCanvas value={qrValue} size={300} />
+                <div className="flex justify-center p-4">
+                    {isMobile ? (
+                        <a
+                            href={qrValue}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline text-center"
+                        >
+                            Tap here to open the AR view
+                        </a>
+                    ) : (
+                        <QRCodeCanvas value={qrValue} size={300} />
+                    )}
                 </div>
                 <DialogFooter>
                     <Button variant="gradient" color="red" onClick={handleOpen}>
