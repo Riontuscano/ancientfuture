@@ -16,6 +16,9 @@ const useLogout = () => {
             if (data.success) {
             localStorage.removeItem("auth-cred")
             toast.success('Logged out successfully')
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 3000);
             }else{
                 throw new Error(data.error);
             }

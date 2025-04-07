@@ -29,6 +29,9 @@ const useSignup = () => {
             localStorage.setItem('auth-cred',JSON.stringify(data.user))
             // setAuthUser(data);
             toast.success("Signup Successfully Done")
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 3000);
         } catch (error) {
             toast.error(error.message)
             throw new Error(error)

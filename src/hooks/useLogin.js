@@ -34,6 +34,9 @@ const useLogin = () => {
             localStorage.setItem('auth-cred',JSON.stringify(data))
             // setAuthUser(data);
             toast.success("Login Successfully Done")
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 3000);
         } catch (error) {
             toast.error(error.message)
             throw new Error(error)
