@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAuthContext } from '../context/AuthContext'
+
 
 const API = import.meta.env.VITE_API_URL
 const useLogout = () => {
     const [loading, setloading] = useState(false)
-    const {setAuthUser} = useAuthContext()
     const logout = async () => {
         setloading(true)
         try {
@@ -16,7 +15,6 @@ const useLogout = () => {
             const data = await response.json()
             if (data.success) {
             localStorage.removeItem("auth-cred")
-            setAuthUser(null)
             toast.success('Logged out successfully')
             }else{
                 throw new Error(data.error);
