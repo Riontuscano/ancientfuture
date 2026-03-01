@@ -11,7 +11,8 @@ const port = process.env.PORT || 8080;
 
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://ancientfuture-alpha.vercel.app'
+    'https://ancientfuture-alpha.vercel.app',
+    'https://ancientfuture.vercel.app'
   ];
   
   app.use(cors({
