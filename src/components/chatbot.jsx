@@ -57,31 +57,31 @@ const Chatbot = ({ mode, groqApiKey }) => {
   const simulateTyping = async (text) => {
     setIsTyping(true);
     setTypingText('');
-    
-  
+
+
     const words = text.split(' ');
     let currentText = '';
-    
+
     for (let i = 0; i < words.length; i++) {
       currentText += (i > 0 ? ' ' : '') + words[i];
       setTypingText(currentText);
-      
 
-      const delay = Math.max(50, Math.min(150, words[i].length ));
+
+      const delay = Math.max(50, Math.min(150, words[i].length));
       await new Promise(resolve => setTimeout(resolve, delay));
     }
 
     await new Promise(resolve => setTimeout(resolve, 300));
-    
+
     setMessages(prevMessages => [
       ...prevMessages,
-      { 
-        text: text, 
+      {
+        text: text,
         sender: 'bot',
         timestamp: new Date()
       }
     ]);
-    
+
     setTypingText('');
     setIsTyping(false);
   };
@@ -98,7 +98,7 @@ const Chatbot = ({ mode, groqApiKey }) => {
       try {
 
         const botResponse = await callGroqAPI(inputMessage);
-        
+
         await simulateTyping(botResponse);
       } catch (error) {
         // Handle errors with typing animation too
@@ -121,17 +121,15 @@ const Chatbot = ({ mode, groqApiKey }) => {
     <>
       <button
         onClick={toggleChat}
-        className={`fixed right-8 bottom-6 p-4 bg-black text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-10 ${
-          isOpen ? 'hidden' : ''
-        }`}
+        className={`fixed right-4 bottom-4 md:right-8 md:bottom-6 p-3 md:p-4 bg-black text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-10 ${isOpen ? 'hidden' : ''
+          }`}
       >
         <MessageCircle className="w-6 h-6" />
       </button>
 
       <div
-        className={`fixed right-0 top-0 h-full w-3/5 bg-white/10 backdrop-blur-lg shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed right-0 top-0 h-full w-full md:w-3/5 bg-white/10 backdrop-blur-lg shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <div className="h-full bg-gradient-to-b from-gray-900/95 to-gray-900/90 text-white">
           <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 flex justify-between items-center">
@@ -153,20 +151,18 @@ const Chatbot = ({ mode, groqApiKey }) => {
                 <p>Start a conversation with Ancient.AI</p>
               </div>
             )}
-            
+
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`mb-4 ${
-                  message.sender === 'user' ? 'text-right' : 'text-left'
-                }`}
+                className={`mb-4 ${message.sender === 'user' ? 'text-right' : 'text-left'
+                  }`}
               >
                 <div
-                  className={`inline-block p-3 rounded-2xl max-w-[80%] ${
-                    message.sender === 'user'
+                  className={`inline-block p-3 rounded-2xl max-w-[80%] ${message.sender === 'user'
                       ? 'bg-gradient-to-r from-violet-600 to-indigo-600'
                       : 'bg-gray-700/50 backdrop-blur-sm'
-                  }`}
+                    }`}
                 >
                   <div className="text-sm markdown-content">
                     {message.sender === 'bot' ? renderFormattedMessage(message.text) : message.text}
@@ -180,7 +176,7 @@ const Chatbot = ({ mode, groqApiKey }) => {
                 </div>
               </div>
             ))}
-            
+
             {typingText && (
               <div className="mb-4 text-left">
                 <div className="inline-block p-3 rounded-2xl max-w-[80%] bg-gray-700/50 backdrop-blur-sm">
@@ -188,25 +184,25 @@ const Chatbot = ({ mode, groqApiKey }) => {
                     {renderFormattedMessage(typingText)}
                   </div>
                   <div className="flex items-center gap-1 mt-1">
-                    <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0ms'}}></span>
-                    <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '300ms'}}></span>
-                    <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '600ms'}}></span>
+                    <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+                    <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+                    <span className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '600ms' }}></span>
                   </div>
                 </div>
               </div>
             )}
-            
+
             {isTyping && !typingText && (
               <div className="flex items-center gap-2 text-gray-400 ml-2">
                 <Loader2 className="w-4 h-4 animate-spin" />
                 <span className="text-sm">Thinking...</span>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
 
-          <form 
+          <form
             onSubmit={handleSendMessage}
             className="absolute bottom-0 left-0 right-0 p-4 bg-gray-900/50 backdrop-blur-lg border-t border-gray-700"
           >
@@ -222,9 +218,8 @@ const Chatbot = ({ mode, groqApiKey }) => {
               <button
                 type="submit"
                 disabled={isTyping || !inputMessage.trim()}
-                className={`p-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl transition-all ${
-                  isTyping || !inputMessage.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:opacity-90'
-                }`}
+                className={`p-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl transition-all ${isTyping || !inputMessage.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:opacity-90'
+                  }`}
               >
                 {isTyping ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
               </button>

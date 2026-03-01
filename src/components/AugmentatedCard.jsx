@@ -57,8 +57,8 @@ const QRCard = ({ title, description, image, year, qrValue, mode }) => {
                 </DialogFooter>
             </Dialog>
 
-            <Card className={`w-96 ${mode ? 'bg-black' : 'bg-white'} border border-gray-700 rounded-xl shadow-lg flex flex-col h-[650px]`}>
-                <CardHeader shadow={false} floated={false} className="h-96">
+            <Card className={`w-full ${mode ? 'bg-black' : 'bg-white'} border border-gray-700 rounded-xl shadow-lg flex flex-col`}>
+                <CardHeader shadow={false} floated={false} className="h-48 md:h-96">
                     <img
                         src={image}
                         alt="card-image"

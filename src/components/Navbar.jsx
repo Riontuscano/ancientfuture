@@ -92,7 +92,7 @@ const Navbar = ({ mode, togglemode }) => {
 
       {/* Mobile Menu (only shows when open) */}
       {isMobileMenuOpen && (
-        <div className="absolute top-16 left-0 w-full flex flex-col items-start bg-base-100 p-4 shadow-md md:hidden gap-3">
+        <div className={`absolute top-16 left-0 w-full flex flex-col items-start p-4 shadow-md md:hidden gap-3 ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}>
           <Link to="/learn" className={navLinkStyle} onClick={() => setMobileMenuOpen(false)}>Learn More</Link>
           <Link to="/tryar" className={navLinkStyle} onClick={() => setMobileMenuOpen(false)}>Try AR</Link>
 

@@ -53,7 +53,7 @@ const AugmentedHolder = (props) => {
       qrValue: 'https://playcanv.as/b/9b6e9983',
     },
   ];
-  
+
   const modals2 = [
     {
       id: 'card_1',
@@ -111,49 +111,49 @@ const AugmentedHolder = (props) => {
       year: '112 Million Years Ago',
       qrValue: 'https://playcanv.as/b/2decd32e',
     },
-];
+  ];
 
 
   return (
 
-    <div className={`min-h-screen ${props.mode  ? 'bg-black' : 'bg-white'} p-8 pt-20`}>
-    <div className="max-w-7xl mx-auto">
-        <h1 className={`text-center text-4xl ${props.mode  ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient mb-8`}>
-            {('Into ancient india (AR) ').toUpperCase()}
+    <div className={`min-h-screen ${props.mode ? 'bg-black' : 'bg-white'} p-4 md:p-8 pt-20`}>
+      <div className="max-w-7xl mx-auto">
+        <h1 className={`text-center text-2xl md:text-4xl ${props.mode ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient mb-6 md:mb-8`}>
+          {('Into ancient india (AR) ').toUpperCase()}
         </h1>
 
-    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 ${props.mode ? 'bg-black':'bg-white'}`}>
-    
-  { modals.map((modal)=>( <QRCard 
-        key={modal.id}
-        title= {modal.title}
-        image={modal.image}
-        description={modal.description}
-        qrValue={modal.qrValue}
-        year={modal.year}
-        mode={props.mode}
-      />
-  ))}    
-    </div>
-    <h2 className={`text-center mt-20 text-4xl ${props.mode  ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient mb-8`}>
-            {('Animal Kingdom And Trees').toUpperCase()}
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 p-2 md:p-4 ${props.mode ? 'bg-black' : 'bg-white'}`}>
+
+          {modals.map((modal) => (<QRCard
+            key={modal.id}
+            title={modal.title}
+            image={modal.image}
+            description={modal.description}
+            qrValue={modal.qrValue}
+            year={modal.year}
+            mode={props.mode}
+          />
+          ))}
+        </div>
+        <h2 className={`text-center mt-12 md:mt-20 text-2xl md:text-4xl ${props.mode ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient mb-6 md:mb-8`}>
+          {('Animal Kingdom And Trees').toUpperCase()}
         </h2>
 
-    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 ${props.mode ? 'bg-black':'bg-white'}`}>
-    
-  { modals2.map((modal)=>( <QRCard 
-        key={modal.id}
-        title= {modal.title}
-        image={modal.image}
-        description={modal.description}
-        qrValue={modal.qrValue}
-        year={modal.year}
-        mode={props.mode}
-      />
-  ))}    
-    </div>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 p-2 md:p-4 ${props.mode ? 'bg-black' : 'bg-white'}`}>
 
-    </div>
+          {modals2.map((modal) => (<QRCard
+            key={modal.id}
+            title={modal.title}
+            image={modal.image}
+            description={modal.description}
+            qrValue={modal.qrValue}
+            year={modal.year}
+            mode={props.mode}
+          />
+          ))}
+        </div>
+
+      </div>
     </div>
   );
 };

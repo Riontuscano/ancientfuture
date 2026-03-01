@@ -69,7 +69,7 @@ const cardData = [
 ];
 
 
-const GuruHolder = ({mode}) => {
+const GuruHolder = ({ mode }) => {
   const cardsRef = useRef([]);
 
   useEffect(() => {
@@ -113,52 +113,45 @@ const GuruHolder = ({mode}) => {
 
   return (
     <>
-      <header className={`${mode ? 'bg-black' : 'bg-white'} p-10 border-t-2 border-gray-600`}>
-        <div className="text-center py-16">
-          <h1 className={`text-center text-4xl ${mode ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient`}>{('Gurus That Shape India').toUpperCase()}</h1>
+      <header className={`${mode ? 'bg-black' : 'bg-white'} p-4 md:p-10 border-t-2 border-gray-600`}>
+        <div className="text-center py-8 md:py-16">
+          <h1 className={`text-center text-2xl md:text-4xl ${mode ? 'text-gold' : 'text-yellow-800'} tracking-wide font-ancient`}>{('Gurus That Shape India').toUpperCase()}</h1>
         </div>
       </header>
 
-      <main className={`${mode ? 'bg-black' : 'bg-white'} p-10`}>
-      <ul
-  id="cards"
-  className=" relative grid grid-cols-1 max-w-4xl mx-auto gap-[4vw] py-8 px-4"
->
-  {cardData.map((card, index) => (
-    <li
-      key={card.id}
-      className="sticky top-[calc(var(--index)*1em)] perspective-1000"
-      ref={(el) => (cardsRef.current[index] = el)}
-      style={{
-        '--index': index + 1,
-        '--card-color': card.color,
-      }}
-    >
-      <div className={`grid grid-cols-2 ${mode ? 'bg-black' : 'bg-white'} border border-gray-700 rounded-xl overflow-hidden shadow-lg transition-all`}>
-        <div
-          className={`flex flex-col justify-center p-8`}
-          
+      <main className={`${mode ? 'bg-black' : 'bg-white'} p-4 md:p-10`}>
+        <ul
+          id="cards"
+          className="relative grid grid-cols-1 max-w-4xl mx-auto gap-6 md:gap-[4vw] py-8 px-2 md:px-4"
         >
-          <h2 className={`text-2xl tracking-wide font-ancient mb-4 ${mode ? 'text-gold' : 'text-yellow-800'}`}>{card.title}</h2>
-          <p className="mb-6 opacity-90">{card.description}</p>
-          <p
-      
-            className="inline-block bg-white bg-opacity-20 text-white px-6 py-3 rounded-lg transition"
-          >
-         
-          </p>
-        </div>
-        <figure className="overflow-hidden w-full h-96">
-          <img
-            src={card.image}
-            alt={card.title}
-            className="w-full h-full object-cover transition-transform"
-          />
-        </figure>
-      </div>
-    </li>
-  ))}
-</ul>
+          {cardData.map((card, index) => (
+            <li
+              key={card.id}
+              className="sticky top-[calc(var(--index)*1em)] perspective-1000"
+              ref={(el) => (cardsRef.current[index] = el)}
+              style={{
+                '--index': index + 1,
+                '--card-color': card.color,
+              }}
+            >
+              <div className={`grid grid-cols-1 md:grid-cols-2 ${mode ? 'bg-black' : 'bg-white'} border border-gray-700 rounded-xl overflow-hidden shadow-lg transition-all`}>
+                <figure className="overflow-hidden w-full h-48 md:h-96 md:order-2">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="w-full h-full object-cover transition-transform"
+                  />
+                </figure>
+                <div
+                  className="flex flex-col justify-center p-4 md:p-8 order-2 md:order-1"
+                >
+                  <h2 className={`text-lg md:text-2xl tracking-wide font-ancient mb-2 md:mb-4 ${mode ? 'text-gold' : 'text-yellow-800'}`}>{card.title}</h2>
+                  <p className="mb-4 md:mb-6 opacity-90 text-sm md:text-base">{card.description}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
 
       </main>
     </>

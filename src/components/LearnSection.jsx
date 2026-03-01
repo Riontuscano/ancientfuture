@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { FileText, ChevronRight, PanelLeftClose } from 'lucide-react';
 import Chatbot from './chatbot';
 
-const PDFLayout = ({mode}) => {
+const PDFLayout = ({ mode }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
   const [selectedPDF, setSelectedPDF] = useState(null);
 
   const pdfList = [
@@ -20,34 +20,32 @@ const PDFLayout = ({mode}) => {
 
   return (
     <>
-      <Chatbot mode={mode} groqApiKey ={apiUrl} />
+      <Chatbot mode={mode} groqApiKey={apiUrl} />
       <div className="fixed inset-0 mt-16 flex">
         <div
-          className={`${!mode ? 'bg-gray-50 border-r border-gray-200':'bg-gray-900 border-r border-gray-900'} transition-all duration-300 ${
-            isSidebarOpen ? 'w-72' : 'w-0'
-          } overflow-hidden flex flex-col h-screen`}
+          className={`${!mode ? 'bg-gray-50 border-r border-gray-200' : 'bg-gray-900 border-r border-gray-900'} transition-all duration-300 ${isSidebarOpen ? 'w-full md:w-72 absolute md:relative z-20' : 'w-0'
+            } overflow-hidden flex flex-col h-screen`}
         >
-          <div className={`p-4 border-b ${!mode ? 'border-gray-300':'border-gray-600'} flex justify-between items-center`}>
-          <h2 className={`text-xl font-semibold ${!mode ? 'text-gray-700':'text-gray-400'}`}>Documents</h2>
-            <button 
+          <div className={`p-4 border-b ${!mode ? 'border-gray-300' : 'border-gray-600'} flex justify-between items-center`}>
+            <h2 className={`text-xl font-semibold ${!mode ? 'text-gray-700' : 'text-gray-400'}`}>Documents</h2>
+            <button
               onClick={() => setIsSidebarOpen(false)}
               className="text-gray-500 hover:text-gray-700"
             >
-              <PanelLeftClose className={`w-5 h-5 ${mode ? 'text-gray-300': 'text-gray-700'} font-medium`}/>
+              <PanelLeftClose className={`w-5 h-5 ${mode ? 'text-gray-300' : 'text-gray-700'} font-medium`} />
             </button>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto p-4">
             <div className="space-y-2">
               {pdfList.map((pdf) => (
                 <button
                   key={pdf.id}
-                  onClick={() => setSelectedPDF(pdf)}
-                  className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                    selectedPDF?.id === pdf.id
+                  onClick={() => { setSelectedPDF(pdf); if (window.innerWidth < 768) setIsSidebarOpen(false); }}
+                  className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${selectedPDF?.id === pdf.id
                       ? `bg-purple-100 text-purple-700 font-medium`
                       : `${!mode ? 'hover:bg-gray-200 hover:text-gray-700' : 'hover:bg-gray-800 hover:text-gray-300'}`
-                  } flex items-center gap-3`}
+                    } flex items-center gap-3`}
                 >
                   <FileText className="w-5 h-5 flex-shrink-0" />
                   <span className="truncate">{pdf.name}</span>
@@ -60,24 +58,25 @@ const PDFLayout = ({mode}) => {
         {!isSidebarOpen && (
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className={`fixed left-4 top-20 z-10 ${!mode ? 'bg-gray-800':'bg-white'} p-2 border rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2`}
+            className={`fixed left-4 top-20 z-10 ${!mode ? 'bg-gray-800' : 'bg-white'} p-2 border rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2`}
           >
-            <ChevronRight className={`w-5 h-5 ${mode ? 'text-gray-800':'text-gray-200'} font-medium`}/>
+            <ChevronRight className={`w-5 h-5 ${mode ? 'text-gray-800' : 'text-gray-200'} font-medium`} />
           </button>
         )}
 
-        <div className = {`flex-1 ${mode ? 'bg-gray-800' : 'bg-gray-100'} h-screen overflow-hidden`}>
+        <div className={`flex-1 ${mode ? 'bg-gray-800' : 'bg-gray-100'} h-screen overflow-hidden`}>
           {selectedPDF ? (
-            <div className="h-full flex flex-col p-6">
-              <div className={`${mode ? 'bg-gray-900': 'bg-white'} rounded-lg shadow-sm p-4 mb-4`}>
-                <h1 className={`text-xl font-semibold ${mode ? 'text-gray-400' : 'text-gray-800'}`}>
+            <div className="h-full flex flex-col p-2 md:p-6">
+              <div className={`${mode ? 'bg-gray-900' : 'bg-white'} rounded-lg shadow-sm p-3 md:p-4 mb-2 md:mb-4`}>
+                <h1 className={`text-base md:text-xl font-semibold ${mode ? 'text-gray-400' : 'text-gray-800'}`}>
                   {selectedPDF.name}
                 </h1>
               </div>
-              <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="flex-1 bg-white rounded-lg shadow-sm overflow-auto">
                 <iframe
-                  src={selectedPDF.url}
-                  className="w-full h-full"
+                  src={`${selectedPDF.url}#view=FitH`}
+                  className="w-full h-full min-h-[80vh]"
+                  style={{ aspectRatio: '3/4' }}
                   title={selectedPDF.name}
                 />
               </div>
