@@ -9,11 +9,35 @@ dotenv.config({ path: '.env.local' })
 const app = express();
 const port = process.env.PORT || 8080;
 
-app.use(cors({
-  origin: true,
-  credentials: true
-}));
-  
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://ancientfuture.vercel.app',
+  'https://ancientfuture-alpha.vercel.app',
+  'https://ancientfuturear.vercel.app'
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    // Also allow any .vercel.app preview deployments
+    if (origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+// Handle preflight requests FIRST
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.get('/',(req,res)=>{
